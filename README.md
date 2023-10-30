@@ -1,5 +1,5 @@
 # ASAP
-Auto SAD Profile program (ASAP)
+**A**uto **S**elected **A**rea diffraction patterns **P**rofiler (ASAP)
 
 ## Running the code
 

@@ -576,7 +576,7 @@ if __name__ == "__main__":
     import qdarktheme
     # pip install pyqtdarktheme
     # app.setStyleSheet(qdarktheme.load_stylesheet("light"))
-    app.setStyleSheet(qdarktheme.load_stylesheet(border="sharp"))
+    app.setStyleSheet(qdarktheme.load_stylesheet(corner_shape="sharp"))
     ui = Ui_MainWindow()
 
     sys.exit(app.exec_())
