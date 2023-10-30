@@ -19,7 +19,7 @@ from pyqtgraph import GraphicsLayoutWidget,PlotWidget,PlotItem
 import pyqtgraph as pg
 
 from hyperspy.io import load as hsload
-from kasad import KASAD
+from asap import ASAP
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
 

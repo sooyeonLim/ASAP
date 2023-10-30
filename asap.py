@@ -10,7 +10,7 @@ from scipy.signal import find_peaks
 from math import sqrt
 from hyperspy.io import load as hsload
 
-class KASAD():
+class ASAP():
 	def __init__(self, filename):
 		self.filename = filename
 		s = hsload(self.filename)
