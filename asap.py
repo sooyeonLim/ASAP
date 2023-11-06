@@ -45,7 +45,7 @@ class ASAP():
 		self.beamstop = dilation_img>0
 		self.reduced_image[self.beamstop] = 0
 
-	def find_center(self, threshold=20, mins=20, trials=5000):
+	def find_center(self, threshold=20, mins=20, trials=3000):
 		# find transmitted beam first
 		img = (self.reduced_image/self.reduced_image.max()*255).astype(np.uint8)
 		img_blurred = cv2.blur(img,(self.kernel_blur,self.kernel_blur))
