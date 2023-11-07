@@ -9,6 +9,7 @@ Make sure you have Python installed on your system. Additionally, install the re
 ```
 pip install -r requirements.txt
 ```
+
 ### Running the UI
 To run the UI, execute the following command in your terminal or command prompt:
 ```
@@ -18,7 +19,7 @@ python ASAP_UI.py
 ## Usage
 ![image](https://github.com/sooyeonLim/ASAP/assets/52401652/ac5976af-0633-4b84-879f-4d17337f29d6)
 1. **Load Data:**
-    - Click on the magnifying glass icon in the "Load Data" section to open a file dialog.
+    - Click on the icon in the "Load Data" section to open a file dialog.
     - Select one or more .dm files that you want to analyze.
 2. **Automated Analysis:**
     - After loading the data, click the "Start" button.
@@ -30,5 +31,12 @@ python ASAP_UI.py
     - Utilize the buttons in the "Save" section to save images and spectra obtained from the analysis.
     - Click on the respective buttons to save the visualized data in your desired format.
 
+
 ## Test Data
 The `/test` folder contains sample electron diffraction pattern images for testing the ASAP algorithm. You can use these images to validate the functionality of the algorithm.
+
+## Author Contributions
+H-K.K. designed the work. S.L. and H.-K.K. carried out signal and image processing algorithms. S.L. acquired TEM-SADP images. S.L., H.-K.K., and I.-C.C. wrote the manuscript with contribution from all authors.
+
+## Acknowledgements
+We acknowledge financial support from a National Research Foundation of Korea (NRF) grant funded by the Korean government (Ministry of Science and ICT) (2021M3H4A6A02050353). 
