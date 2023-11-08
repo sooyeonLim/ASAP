@@ -12,8 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon,QPalette , QColor
-from PyQt5.QtGui import QFont, QFontDatabase
+from PyQt5.QtGui import QIcon,QPalette, QColor, QFont, QFontDatabase
 from PyQt5.QtWidgets import *
 from pyqtgraph import GraphicsLayoutWidget,PlotWidget,PlotItem
 import pyqtgraph as pg
@@ -34,7 +33,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     self.setObjectName("MainWindow")
     self.resize(1500, 980)
     self.setWindowTitle("Auto Selected Area diffraction patterns Profiler (ASAP)")
-    self.setWindowIcon(QIcon("./UI/kist.jpg"))
+    self.setWindowIcon(QIcon("./UI/kist.png"))
     self.centralwidget = QtWidgets.QWidget( )
     self.centralwidget.setObjectName("centralwidget")
     self.setCentralWidget(self.centralwidget)
@@ -556,8 +555,8 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     import qdarktheme
-    app.setStyleSheet(qdarktheme.load_stylesheet(border="sharp"))
-    # app.setStyleSheet(qdarktheme.load_stylesheet(corner_shape="sharp"))
+    # app.setStyleSheet(qdarktheme.load_stylesheet(border="sharp"))
+    app.setStyleSheet(qdarktheme.load_stylesheet(corner_shape="sharp"))
     ui = Ui_MainWindow()
 
     sys.exit(app.exec_())
