@@ -7,6 +7,8 @@ ASAP is a Python-based computational method developed for the automated interpre
 ### Prerequisites
 Make sure you have Python installed on your system. Additionally, install the required packages by running the following command:
 ```
+conda create -n ASAP python=3.11
+conda activate ASAP
 pip install -r requirements.txt
 ```
 
