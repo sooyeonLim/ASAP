@@ -527,16 +527,16 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     range = 600
     org_image = self.org_images[order][center_x-range : center_x+range,center_y-range : center_y+range]
     fname=QFileDialog.getSaveFileName(self, 'save center image','./')
-    plt.imshow(org_image)
+    plt.imshow(org_image, cmap='grey')
     plt.axis('off')
     plt.savefig(fname[0],bbox_inches = 'tight', pad_inches = 0)
     
 
   def click_save_image(self):
     order = int(self.spinBox_2.value()-1)
-    org_image = self.org_images[order]
+    org_image = self.merged_image[order]
     fname=QFileDialog.getSaveFileName(self, 'save SADP image','./')
-    plt.imshow(org_image)
+    plt.imshow(org_image, cmap='grey')
     plt.axis('off')
     plt.savefig(fname[0],bbox_inches = 'tight', pad_inches = 0)
 
