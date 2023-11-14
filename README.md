@@ -1,4 +1,4 @@
-# ASAP
+![image](https://github.com/sooyeonLim/ASAP/assets/52401652/dc3b190b-4ba2-44bc-b221-eac8e95d7598)# ASAP
 **A**uto **S**elected **A**rea diffraction patterns **P**rofiler (ASAP)
 
 ASAP is a Python-based computational method developed for the automated interpretation of selected area diffraction patterns (SADP) in transmission electron microscopy. The approach utilizes advanced computer vision algorithms, including the random sample consensus (RANSAC) algorithm, to automatically generate structural profiles from electron diffraction pattern images.
@@ -19,7 +19,8 @@ python ASAP_UI.py
 ```
 
 ## Usage
-![image](https://github.com/sooyeonLim/ASAP/assets/52401652/ac5976af-0633-4b84-879f-4d17337f29d6)
+![image](https://github.com/sooyeonLim/ASAP/assets/52401652/2048012a-ab5a-49dd-84d4-4f78602418dd)
+
 1. **Load Data:**
     - Click on the icon in the "Load Data" section to open a file dialog.
     - Select one or more .dm files that you want to analyze.
