@@ -1,28 +1,18 @@
-# -*- coding: utf-8 -*-
-#
-# Created by: PyQt5 UI code generator 5.9.2
-#
-# WARNING! All changes made in this file will be lost!
-#
-# version : 2023.10.10
 
 import os, sys
-import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon,QPalette, QColor, QFont, QFontDatabase
+from PyQt5.QtCore import QThread ,pyqtSignal
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import *
-from pyqtgraph import GraphicsLayoutWidget,PlotWidget,PlotItem
+from pyqtgraph import GraphicsLayoutWidget
 import pyqtgraph as pg
-
+import qdarktheme
 from hyperspy.io import load as hsload
 from asap import ASAP
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
-
-
   def __init__(self):
     super().__init__()
     self.setupUi()
@@ -185,7 +175,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     self.pushButton_6 = QtWidgets.QPushButton(self.groupBox_4)
     self.pushButton_6.setGeometry(QtCore.QRect(20, 180, 221, 51))
     font = QtGui.QFont("Helvetica")
-    font.setPointSize(10)
+    font.setPointSize(9)  # 글씨 크기 줄임...ㅎ
     font.setBold(False)
     font.setWeight(50)
     self.pushButton_6.setFont(font)
@@ -354,10 +344,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
   def click_dataload(self):
     self.statusbar.showMessage("loading ...")
-    # self.progressbar = QtWidgets.QProgressBar()
-    # self.progressbar.setMinimum(0)
-    # self.progressbar.setMaximum(0)
-    # self.statusbar.addWidget(self.progressbar)
 
     _translate = QtCore.QCoreApplication.translate
     fnames=QFileDialog.getOpenFileNames(self, 'open file','./')
@@ -390,31 +376,23 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     self.spinBox.valueChanged.connect(self.plot_view_1)
 
     self.statusbar.clearMessage()
-    # self.statusbar.removeWidget(self.progressbar)
 
 
   def click_start(self):
-    self.statusbar.showMessage(" processing ...")
+    self.progressbar = QtWidgets.QProgressBar()
+    self.progressbar.setMinimum(0)
+    self.progressbar.setMaximum(0)
+    self.statusbar.addWidget(self.progressbar)
+    self.worker = Worker(self.fnames)
+    self.worker.finished_signal.connect(self.on_calculation_finished)
+    self.worker.start()
 
-    centers = []
-    x_axis_s = []
-    radialprofile_s = []
-    merged_image_s = []
-    for f in self.fnames:
-      k = ASAP(f)
-      k.auto_profile()
-      (x_axis, radialprofile) = k.radial_profile(center = k.center)
-      centers.append(k.center)
-      x_axis_s.append(x_axis)
-      radialprofile_s.append(radialprofile)
-      merged_image_s.append(k.merged_image)
 
-    self.centers = np.array(centers)
-    self.x_axis_s = x_axis_s
-    self.radialprofile_s = radialprofile_s
-    self.merged_image = np.array(k.merged_image)
-    self.merged_image = np.array(merged_image_s)
-
+  def on_calculation_finished(self):
+    self.centers = self.worker.centers
+    self.x_axis_s = self.worker.x_axis_s
+    self.radialprofile_s = self.worker.radialprofile_s
+    self.merged_image = self.worker.merged_image
 
     # set right slider range 
     self.horizontalSlider.setRange(1, self.data_num) 
@@ -441,7 +419,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     self.horizontalSlider.sliderMoved.connect(self.plot_view_5)
     self.spinBox_2.valueChanged.connect(self.plot_view_5)
 
-    self.statusbar.clearMessage()
+    # self.statusbar.clearMessage()
+    self.statusbar.removeWidget(self.progressbar)
 
 
   def plot_view_1(self):
@@ -551,13 +530,39 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     df.to_csv(fname[0], index=False)
 
 
+
+class Worker(QThread):
+  finished_signal = pyqtSignal() 
+
+  def __init__(self, fnames):
+    super().__init__()
+    self.fnames = fnames
+
+  def run(self):
+    centers = []
+    x_axis_s = []
+    radialprofile_s = []
+    merged_image_s = []
+    for f in self.fnames:
+      k = ASAP(f)
+      k.auto_profile()
+      (x_axis, radialprofile) = k.radial_profile(center = k.center)
+      centers.append(k.center)
+      x_axis_s.append(x_axis)
+      radialprofile_s.append(radialprofile)
+      merged_image_s.append(k.merged_image)
+
+    self.centers = np.array(centers)
+    self.x_axis_s = x_axis_s
+    self.radialprofile_s = radialprofile_s
+    self.merged_image = np.array(merged_image_s)
+
+    self.finished_signal.emit()
+
+
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
-    import qdarktheme
-    # app.setStyleSheet(qdarktheme.load_stylesheet(border="sharp"))
     app.setStyleSheet(qdarktheme.load_stylesheet(corner_shape="sharp"))
     ui = Ui_MainWindow()
-
     sys.exit(app.exec_())
 
